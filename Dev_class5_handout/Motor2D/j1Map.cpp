@@ -302,9 +302,26 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 // TODO 3: Create the definition for a function that loads a single layer
 bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {
-	layer->name = data.name;
-	layer->height = data.height;
-	layer->width = data.width;
+	pugi::xml_node nlayer = node.child("layer");
+	bool ret = true;
+
+	if (layer == NULL)
+	{
+		LOG("Error parsing tileset xml file: Cannot find 'layer' tag.");
+		ret = false;
+	}
+	else
+	{
+		layer->name = nlayer.attribute("name").as_string();
+		layer->height = nlayer.attribute("height").as_int();
+		layer->width = nlayer.attribute("width").as_int();
+
+	}
+
 	layer->data = new uint[layer->width*layer->height];
 	memset(layer->data, 0, sizeof(uint)*(layer->height*layer->width));
+
+
+
+	return ret;
 }
