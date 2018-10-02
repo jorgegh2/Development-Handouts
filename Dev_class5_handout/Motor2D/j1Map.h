@@ -32,15 +32,7 @@ struct MapLayer
 struct TileSet
 {
 	// TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
-	SDL_Rect GetTileRect(int id) const {
-		int relative_id = id - firstgid;
-		SDL_Rect rect;
-		rect.w = tile_width;
-		rect.h = tile_height;
-		rect.x = margin + ((rect.w + spacing) * (relative_id % num_tiles_width));
-		rect.y = margin + ((rect.h + spacing) * (relative_id / num_tiles_width));
-		return rect;
-	}
+	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			name;
 	int					firstgid;
@@ -101,14 +93,7 @@ public:
 	bool Load(const char* path);
 
 	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
-	iPoint MapToWorld(int x, int y) const {
-		iPoint ret;
-
-		ret.x = x * data.tile_width;
-		ret.y = y * data.tile_height;
-
-		return ret;
-	}
+	iPoint MapToWorld(int x, int y) const;
 
 private:
 

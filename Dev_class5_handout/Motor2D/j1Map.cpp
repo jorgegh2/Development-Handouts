@@ -32,7 +32,7 @@ void j1Map::Draw()
 		return;
 
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
-	for (uint i=0;i<.)
+	//for (uint i=0;i<)
 		// TODO 9: Complete the draw function
 
 }
