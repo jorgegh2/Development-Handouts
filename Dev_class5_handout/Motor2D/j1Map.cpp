@@ -35,6 +35,20 @@ void j1Map::Draw()
 	//for (uint i=0;i<)
 		// TODO 9: Complete the draw function
 
+	MapLayer* layer = data.maplayers.start->data;
+	TileSet* tileset = data.tilesets.start->data;
+	iPoint coordenadas;
+
+	
+	
+	for (uint i = 0; i < layer->width; i++) {
+		for (uint j = 0; j < layer->height; j++) {
+			uint id = layer->data[layer->Get(i, j)];
+			SDL_Rect rect = tileset->GetTileRect(id);
+			coordenadas = MapToWorld(i, j);
+			App->render->Blit(tileset->texture, coordenadas.x, coordenadas.y, &rect);
+		}
+	}
 }
 
 
@@ -47,6 +61,7 @@ iPoint j1Map::MapToWorld(int x, int y) const
 
 	return ret;
 }
+
 
 SDL_Rect TileSet::GetTileRect(int id) const
 {
@@ -141,7 +156,7 @@ bool j1Map::Load(const char* file_name)
 
 		if (ret == true)
 		{
-			ret = LoadLayer(tileset, set);
+			ret = LoadLayer(layer, set);
 		}
 
 		data.maplayers.add(set);
@@ -335,7 +350,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		for (uint i = 0; i < layer->height*layer->width; i++)
 		{
 			layer->data[i] = tile.attribute("gid").as_int();
-			tile.next_sibling("tile");
+			tile = tile.next_sibling("tile");
 		}
 	}
 
