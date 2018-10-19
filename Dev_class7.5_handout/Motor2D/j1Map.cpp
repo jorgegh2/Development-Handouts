@@ -40,29 +40,41 @@ void j1Map::PropagateBFS()
 	
 	// TODO 1: If frontier queue contains elements
 	// pop the last one and calculate its 4 neighbors
-	for(uint i = 0; frontier.GetLast; i++)
-	{
-		iPoint current_point = frontier.GetLast;
+	//for(uint i = 0; frontier.Count; i++)
+//	{
+		iPoint current_point = frontier.start->data;
 
 		iPoint neightbour_north(current_point.x - 1, current_point.y);
 		iPoint neightbour_east(current_point.x, current_point.y +1);
 		iPoint neightbour_south(current_point.x + 1, current_point.y);
 		iPoint neightbour_west(current_point.x, current_point.y - 1);
 
-		frontier.Push(neightbour_north);
-		visited.add(neightbour_north);
+		if (visited.find(neightbour_north) == -1 && IsWalkable(neightbour_north.x, neightbour_north.y) == true)
+		{
+			frontier.Push(neightbour_north);
+			visited.add(neightbour_north);
+		}
 
-		frontier.Push(neightbour_east);
-		visited.add(neightbour_east);
+		if (visited.find(neightbour_east) == -1 && IsWalkable(neightbour_east.x, neightbour_east.y) == true)
+		{
+			frontier.Push(neightbour_east);
+			visited.add(neightbour_east);
+		}
 
-		frontier.Push(neightbour_south);
-		visited.add(neightbour_south);
+		if (visited.find(neightbour_south) == -1 && IsWalkable(neightbour_south.x, neightbour_south.y) == true)
+		{
+			frontier.Push(neightbour_south);
+			visited.add(neightbour_south);
+		}
 
-		frontier.Push(neightbour_west);
-		visited.add(neightbour_west);
+		if (visited.find(neightbour_west) == -1 && IsWalkable(neightbour_west.x, neightbour_west.y) == true)
+		{
+			frontier.Push(neightbour_west);
+			visited.add(neightbour_west);
+		}
 
-		frontier.Pop(frontier.GetLast);
-	}
+		frontier.Pop(frontier.start->data);
+	//}
 	// TODO 2: For each neighbor, if not visited, add it
 	// to the frontier queue and visited list
 }
@@ -70,7 +82,6 @@ void j1Map::PropagateBFS()
 void j1Map::DrawBFS()
 {
 	iPoint point;
-
 	// Draw visited
 	p2List_item<iPoint>* item = visited.start;
 
@@ -103,9 +114,23 @@ void j1Map::DrawBFS()
 
 bool j1Map::IsWalkable(int x, int y) const
 {
+	bool ret = true;
 	// TODO 3: return true only if x and y are within map limits
 	// and the tile is walkable (tile id 0 in the navigation layer)
-	return true;
+	//data.layers.start->data->properties
+	p2List_item<MapLayer*>* gid_layer = data.layers.start->next;
+	//gid_layer->data->properties.list.find()
+	if (gid_layer->data->Get(x, y) == 26)
+		return false;
+	
+
+	/*for (gid_layer = data.layers.start; gid_layer; gid_layer = gid_layer->next)
+	{
+		if (gid_layer->data->properties.Get("Nodraw", 1) == 0)
+			return true;
+	}*/
+	
+	return ret;
 }
 
 void j1Map::Draw()
