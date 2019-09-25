@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<SaveAndGame>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<scene />
+	<renderer CameraX="0" CameraY="-312" />
+</SaveAndGame>
