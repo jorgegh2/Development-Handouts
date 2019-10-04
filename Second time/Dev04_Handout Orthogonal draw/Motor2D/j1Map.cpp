@@ -41,7 +41,7 @@ void j1Map::Draw()
 			{
 				for(uint x = 0; x < layer->data->width_in_tiles; ++x)
 				{
-					iPoint pos_in_world = MapToWorld(iPoint(x, y));
+					iPoint pos_in_world = MapToWorldIsometric(iPoint(x, y));
 					SDL_Rect section = tileset->data->GetRectFromID(layer->data->GetID(x, y));
 					App->render->Blit(tileset->data->texture, pos_in_world.x, pos_in_world.y, &section);
 				}
@@ -65,6 +65,37 @@ iPoint j1Map::MapToWorld(const iPoint& p) const
 
 	return ret;
 }
+
+iPoint j1Map::WorldToMap(const iPoint& p) const
+{
+	iPoint ret;
+
+	ret.x = p.x / data.tile_width;
+	ret.y = p.y / data.tile_height;
+
+	return ret;
+}
+
+iPoint j1Map::MapToWorldIsometric(const iPoint& p) const
+{
+	iPoint ret;
+
+	ret.x = (p.x - p.y) * data.tile_width/2;
+	ret.y = (p.x + p.y) * data.tile_height / 2;;
+
+	return ret;
+}
+
+iPoint j1Map::WorldToMapIsometric(const iPoint& p) const
+{
+	iPoint ret;
+
+	//ret.x = (p.x - p.y) * data.tile_width / 2;
+	//ret.y = (p.x + p.y) * data.tile_height / 2;;
+
+	return ret;
+}
+
 
 
 // Called before quitting
