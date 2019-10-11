@@ -113,8 +113,6 @@ public:
 
 	iPoint MapToWorld(const iPoint&) const;
 	iPoint WorldToMap(const iPoint&) const;
-	iPoint MapToWorldIsometric(const iPoint& )const;
-	iPoint WorldToMapIsometric(const iPoint&)const;
 
 private:
 

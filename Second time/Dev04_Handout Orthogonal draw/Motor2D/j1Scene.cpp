@@ -69,7 +69,7 @@ bool j1Scene::Update(float dt)
 
 	mouse_pos.x -= App->render->camera.x;
 	mouse_pos.y -= App->render->camera.y;
-	iPoint tile_on_mouse = App->map->WorldToMap(mouse_pos);
+	iPoint tile_on_mouse = App->map->WorldToMap(mouse_pos);;
 
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:(%d,%d)",
 					App->map->data.width, App->map->data.height,
