@@ -44,10 +44,6 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
-	map_coordinates -= iPoint(1, 0);
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
 
@@ -67,17 +63,32 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x -= 1;
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-		App->map->ResetBFS();
+		App->map->ResetPath();
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		App->map->PropagateBFS(map_coordinates);
+		App->map->PropagateBFS();
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
-		App->map->PropagateBFS(map_coordinates);
+		App->map->PropagateBFS();
+
+	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
+		App->map->PropagateDijkstra();
+
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
+		App->map->PropagateDijkstra();
+
+	if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
+	{
+		iPoint p;
+		App->input->GetMousePosition(p.x, p.y);
+		App->map->Path(p.x - App->render->camera.x, p.y - App->render->camera.y);
+	}
 
 	App->map->Draw();
 
-	
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
