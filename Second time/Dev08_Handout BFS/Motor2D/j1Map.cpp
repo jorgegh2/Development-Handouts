@@ -87,18 +87,22 @@ void j1Map::DrawBFS()
 	// Draw visited
 	p2List_item<iPoint>* item = bread.end;
 	p2List_item<iPoint>* itemv = visited.start;
-
+	point = item->data;
 	while(item)
 	{
-		point = item->data;
+		
 		TileSet* tileset = GetTilesetFromTileId(26);
 
 		SDL_Rect r = tileset->GetTileRect(26);
 		iPoint pos = MapToWorld(point.x, point.y);
 
+
 		App->render->Blit(tileset->texture, pos.x, pos.y, &r);
 
-		//point = 
+		int id = visited.find(point);
+		point = bread.At(id)->data;
+		if (point == visited.start->data)
+			item = nullptr;
 	}
 
 	// Draw frontier
