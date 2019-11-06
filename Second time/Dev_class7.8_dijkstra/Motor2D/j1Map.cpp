@@ -56,7 +56,7 @@ void j1Map::Path(int x, int y)
 		// add each step into "path" dyn array (it will then draw automatically)
 		while (visited.find(point) == -1)
 		{
-			PropagateDijkstra();
+			PropagateAStar(goal);
 		}
 		while (point != visited.start->data)
 		{
@@ -166,6 +166,40 @@ void j1Map::PropagateBFS()
 			}
 		}
 	}
+}
+
+void j1Map::PropagateAStar(iPoint goal)
+{
+
+		iPoint current;
+		if (frontier.Pop(current))
+		{
+			iPoint neighbors[4];
+			neighbors[0].create(current.x + 1, current.y + 0);
+			neighbors[1].create(current.x + 0, current.y + 1);
+			neighbors[2].create(current.x - 1, current.y + 0);
+			neighbors[3].create(current.x + 0, current.y - 1);
+
+			for (uint i = 0; i < 4; ++i)
+			{
+				if (IsWalkable(neighbors[i].x, neighbors[i].y))
+				{
+				
+						int distance = neighbors[i].DistanceManhattan(goal);
+						int cost = cost_so_far[current.x][current.y] + MovementCost(neighbors[i].x, neighbors[i].y);
+						if (cost_so_far[neighbors[i].x][neighbors[i].y] == 0 || cost < cost_so_far[current.x][current.y])
+						{
+							cost_so_far[neighbors[i].x][neighbors[i].y] = cost;
+							frontier.Push(neighbors[i], cost + distance);
+							visited.add(neighbors[i]);
+							if (breadcrumbs.find(neighbors[i]) == -1)
+								breadcrumbs.add(current);
+						}
+					
+				}
+			}
+		}
+	
 }
 
 void j1Map::DrawPath()

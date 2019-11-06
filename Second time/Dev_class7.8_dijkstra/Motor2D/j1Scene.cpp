@@ -84,6 +84,13 @@ bool j1Scene::Update(float dt)
 		App->map->Path(p.x - App->render->camera.x, p.y - App->render->camera.y);
 	}
 
+	if (App->input->GetMouseButtonDown(3) == KEY_DOWN)
+	{
+		iPoint p;
+		App->input->GetMousePosition(p.x, p.y);
+		App->map->Path(p.x - App->render->camera.x, p.y - App->render->camera.y);
+	}
+
 	App->map->Draw();
 
 	int x, y;
