@@ -174,7 +174,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	{
 		return ret;
 	}
-
+	last_path.Clear();
 	PathList visiting;
 	PathList visited;
 
@@ -188,14 +188,13 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	{
 		// TODO 3: Move the lowest score cell from open list to the closed list
 
-		PathNode current = visiting.GetNodeLowestScore()->data;
-		visited.list.add(current);
-		visiting.list.del(visiting.Find(current.pos));
+		PathNode* current = &visited.list.add(visiting.GetNodeLowestScore()->data)->data;
+		visiting.list.del(visiting.Find(current->pos));
 
 		// TODO 4: If we just added the destination, we are done!
 	// Backtrack to create the final path
 	// Use the Pathnode::parent and Flip() the path when you are finish
-		if (current.pos == destination)
+		if (current->pos == destination)
 		{
 			const PathNode* parent_current = &visited.list.end->data;
 			last_path.PushBack(parent_current->pos);
@@ -211,7 +210,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 
 		PathList neighbours; 
-		if (current.FindWalkableAdjacents(neighbours) > 0)
+		if (current->FindWalkableAdjacents(neighbours) > 0)
 		{
 			// TODO 6: Iterate adjancent nodes:
 // ignore nodes in the closed list
@@ -225,25 +224,23 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 				if (visited.Find(iter->data.pos) == nullptr)
 				{
 					visiting.list.add(iter->data);
-					iter->data.parent = &current;
+					iter->data.parent = current;
 				}
 				else if(visiting.Find(iter->data.pos) != nullptr)
 				{
 					if (visiting.Find(iter->data.pos)->data.g >= iter->data.g)
 					{
-						iter->data.parent = &current;
+						iter->data.parent = current;
 					}
 				}
 			}
 		}
+		neighbours.list.clear();
 
 	}
 
-
-	
-	
-
-
+	visiting.list.clear();
+	visited.list.clear();
 
 
 	return -1;
