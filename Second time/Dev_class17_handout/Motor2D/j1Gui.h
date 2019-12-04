@@ -2,10 +2,12 @@
 #define __j1GUI_H__
 
 #include "j1Module.h"
+#include "UIObject.h"
+#include "p2Point.h"
+
 
 #define CURSOR_WIDTH 2
 
-class UIObject;
 
 // TODO 1: Create your structure of classes
 
@@ -37,7 +39,9 @@ public:
 	// TODO 2: Create the factory methods
 	// Gui creation functions
 
-	const SDL_Texture* GetAtlas() const;
+	UIObject* CreateUIObject(UIType type, iPoint pos, SDL_Rect rect_sprisheet);
+
+	SDL_Texture* GetAtlas() const;
 
 private:
 
