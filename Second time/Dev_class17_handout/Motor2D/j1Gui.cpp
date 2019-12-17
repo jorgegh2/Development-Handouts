@@ -49,7 +49,7 @@ bool j1Gui::PreUpdate()
 bool j1Gui::PostUpdate()
 {
 	for (p2List_item<UIObject*>* iter = UI_objects.start; iter; iter = iter->next)
-		iter->data->PostUpdate();
+		iter->data->PostUpdate(atlas);
 
 	return true;
 }
@@ -77,15 +77,39 @@ UIObject* j1Gui::CreateUIObject(UIType type, iPoint pos, SDL_Rect rect_spriteshe
 		ret = new UIImage(type, pos, rect_spritesheet);
 		break;
 	case UIType::TEXT:
+		ret = new UIText(type, pos, rect_spritesheet);
+
 		break;
 	default:
 		break;
 	}
+	if (ret != nullptr)
+		UI_objects.add(ret);
 
-	UI_objects.add(ret);
+	else
+		LOG("UI Object was not created correctly... Don't add to the list!");
+
+	
 
 	return ret;
 }
+
+UIText* j1Gui::CreateUIText(iPoint pos, p2SString text)
+{
+	SDL_Texture* texture_text = App->font->Print(text.GetString());
+
+	SDL_Rect texture_rect;
+	texture_rect.x = 0;
+	texture_rect.y = 0;
+	SDL_QueryTexture(texture_text, NULL, NULL, &texture_rect.w, &texture_rect.h);
+
+	UIText* ret = (UIText*)CreateUIObject(UIType::TEXT, pos, texture_rect);
+
+	ret->texture_text = texture_text;
+
+	return ret;
+}
+
 
 // class Gui ---------------------------------------------------
 

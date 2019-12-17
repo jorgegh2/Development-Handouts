@@ -8,6 +8,7 @@
 
 #define CURSOR_WIDTH 2
 
+class UIText;
 
 // TODO 1: Create your structure of classes
 
@@ -40,6 +41,8 @@ public:
 	// Gui creation functions
 
 	UIObject* CreateUIObject(UIType type, iPoint pos, SDL_Rect rect_sprisheet);
+
+	UIText* CreateUIText(iPoint pos, p2SString text);
 
 	SDL_Texture* GetAtlas() const;
 

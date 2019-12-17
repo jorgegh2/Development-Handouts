@@ -7,7 +7,6 @@ class UIImage : public UIObject
 public:
 	UIImage(UIType _type, iPoint pos, SDL_Rect rect_spritesheet) : UIObject(pos, rect_spritesheet) { type = _type; }
 
-	bool PostUpdate() override;
 };
 
 #endif // !__UIIMAGE_H__

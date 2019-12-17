@@ -45,7 +45,7 @@ bool j1Scene::Start()
 	debug_tex = App->tex->Load("maps/path2.png");
 
 	App->gui->CreateUIObject(UIType::IMAGE, iPoint{ 300, 100 }, SDL_Rect{ 485, 829, 328, 103 });
-
+	App->gui->CreateUIText(iPoint{ 300, 0 }, "Hello World");
 
 	// TODO 3: Create the banner (rect {485, 829, 328, 103}) as a UI element
 	// TODO 4: Create the text "Hello World" as a UI element
