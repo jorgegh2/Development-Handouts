@@ -49,9 +49,6 @@
     <ClCompile Include="j1Gui.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="UIImage.cpp">
-      <Filter>Desenvolupament  ========\UI</Filter>
-    </ClCompile>
     <ClCompile Include="UIObject.cpp">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClCompile>
