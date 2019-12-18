@@ -92,10 +92,12 @@
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
+    <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIObject.cpp" />
     <ClCompile Include="UIText.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="UIButton.h" />
     <ClInclude Include="UIImage.h" />
     <ClInclude Include="UIObject.h" />
     <ClInclude Include="j1Fonts.h" />
