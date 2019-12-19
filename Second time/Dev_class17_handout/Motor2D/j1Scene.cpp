@@ -46,6 +46,7 @@ bool j1Scene::Start()
 
 	App->gui->CreateUIObject(UIType::IMAGE, iPoint{ 300, 100 }, SDL_Rect{ 485, 829, 328, 103 });
 	App->gui->CreateUIText(iPoint{ 300, 0 }, "Hello World");
+	App->gui->CreateUIButton(iPoint{ 50, 50 }, "Button", SDL_Rect{ 0,113, 229, 69 });
 
 	// TODO 3: Create the banner (rect {485, 829, 328, 103}) as a UI element
 	// TODO 4: Create the text "Hello World" as a UI element

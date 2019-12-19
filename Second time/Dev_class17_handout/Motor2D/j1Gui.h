@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "UIObject.h"
 #include "p2Point.h"
+#include "UIButton.h"
 
 
 #define CURSOR_WIDTH 2
@@ -41,8 +42,8 @@ public:
 	// Gui creation functions
 
 	UIObject* CreateUIObject(UIType type, iPoint pos, SDL_Rect rect_sprisheet);
-
 	UIText* CreateUIText(iPoint pos, p2SString text);
+	UIButton* CreateUIButton(iPoint pos, p2SString text, SDL_Rect image_rect);
 
 	SDL_Texture* GetAtlas() const;
 

@@ -12,7 +12,8 @@ enum class UIType
 {
 	NONE = -1,
 	IMAGE,
-	TEXT
+	TEXT,
+	BUTTON
 };
 
 class UIObject
@@ -27,6 +28,7 @@ public:
 	UIType type = UIType::NONE;
 	iPoint pos;
 	SDL_Rect rect_spritesheet;
+	SDL_Rect rect_world;
 
 };
 

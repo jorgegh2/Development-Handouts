@@ -4,7 +4,13 @@
 #include "j1Gui.h"
 
 
-UIObject::UIObject(iPoint pos, SDL_Rect rect_spritesheet) : pos(pos), rect_spritesheet(rect_spritesheet) {}
+UIObject::UIObject(iPoint pos, SDL_Rect rect_spritesheet) : pos(pos), rect_spritesheet(rect_spritesheet) 
+{
+	rect_world.x = pos.x;
+	rect_world.y = pos.y;
+	rect_world.w = rect_spritesheet.w;
+	rect_world.h = rect_spritesheet.h;
+}
 
 bool UIObject::PostUpdate(SDL_Texture* atlas)
 {

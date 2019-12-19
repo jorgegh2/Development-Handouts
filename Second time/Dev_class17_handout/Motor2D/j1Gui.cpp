@@ -42,6 +42,9 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
+	for (p2List_item<UIObject*>* iter = UI_objects.start; iter; iter = iter->next)
+		iter->data->PreUpdate();
+	
 	return true;
 }
 
@@ -78,7 +81,9 @@ UIObject* j1Gui::CreateUIObject(UIType type, iPoint pos, SDL_Rect rect_spriteshe
 		break;
 	case UIType::TEXT:
 		ret = new UIText(type, pos, rect_spritesheet);
-
+		break;
+	case UIType::BUTTON:
+		ret = new UIButton(type, pos, rect_spritesheet);
 		break;
 	default:
 		break;
@@ -107,6 +112,26 @@ UIText* j1Gui::CreateUIText(iPoint pos, p2SString text)
 
 	ret->texture_text = texture_text;
 
+	return ret;
+}
+
+UIButton* j1Gui::CreateUIButton(iPoint pos, p2SString text, SDL_Rect image_rect)
+{
+	UIButton* ret = (UIButton*)CreateUIObject(UIType::BUTTON, pos, image_rect);
+
+	SDL_Texture* texture_text = App->font->Print(text.GetString());
+
+	SDL_Rect texture_rect;
+	texture_rect.x = 0;
+	texture_rect.y = 0;
+	SDL_QueryTexture(texture_text, NULL, NULL, &texture_rect.w, &texture_rect.h);
+
+	ret->text = new UIText(UIType::TEXT, pos, texture_rect);
+	ret->text->texture_text = texture_text;
+	ret->background = new UIImage(UIType::BUTTON, pos, image_rect);
+	ret->hover = new UIImage(UIType::BUTTON, pos, SDL_Rect{411,169,229,69});
+	ret->clicked = new UIImage(UIType::BUTTON, pos, SDL_Rect{ 642,169,229,69 });
+	ret->current_image = ret->background;
 	return ret;
 }
 
